@@ -37,30 +37,30 @@ all:
       #use_network_name: 'vlan_1287'
       #use_network_subnet: '09e6ac05-7cff-4ab9-8a5e-533e677fc02e'
       use_network_name: 'vlan_1284'
-      use_network_subnet: 'a21d29c4-9fc1-4683-922c-5b68223e72e6'
+      use_network_subnet: '3657a95c-4b74-4e6a-98a8-24a41910cad6'
 
       vm_type: 'zvm' # kvm or zvm
       disk_type: 'dasd' # dasd or scsi
       #volume_type_id: 'caf436ef-687d-4a78-987d-b5415e69685f'
       #^^^ SVCfp1 LTIC_DRP_Pool ^^^
 
-      openshift_version: '4.10'
-      openshift_minor_version: '16'
+      openshift_version: '4.11'
+      openshift_minor_version: '9'
       
       auto_allocated_ip: false  # true or false
       #allocation_pool_start: '<ip range start>'
       #allocation_pool_end: '<ip range end>'
       os_flavor_bootstrap: 'medium'
-      os_flavor_master: 'ocpmgr_small'
-      os_flavor_worker: 'ocpwrk_medium' 
+      os_flavor_master: 'ocpmgr'
+      os_flavor_worker: 'ocpwrkr' 
 
-      create_server_zone: 'z14_AZ'
+      create_server_zone: 'z15_AZ'
       os_control_nodes_number: 3
-      os_compute_nodes_number: 2
+      os_compute_nodes_number: 3
 
-      os_bootstrap_ip: '10.20.82.52'
-      os_master_ip: ['10.20.82.46', '10.20.82.47', '10.20.82.48']
-      os_infra_ip: ['10.20.82.49', '10.20.82.50']
+      os_bootstrap_ip: '10.20.82.71'
+      os_master_ip: ['10.20.82.60', '10.20.82.61', '10.20.82.62']
+      os_infra_ip: ['10.20.82.63', '10.20.82.70', '10.20.82.72']
       
       use_proxy: false # true or false
       http_proxy: 'http://10.20.80.216:3128/'
@@ -68,10 +68,10 @@ all:
       no_proxy: 'localhost,127.0.0.1,.fpet.pokprv.stglabs.ibm.com,10.0.0.0/8'
 
       use_localreg: true # true or false
-      localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/test0/ocp4/openshift4/install"
+      localreg_mirror: "sandboxregistry.fpet.pokprv.stglabs.ibm.com:5000/sandbox/openshift4/11/install"
       localreg_source1: "quay.io/openshift-release-dev/ocp-release"
       localreg_source2: "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
-      localreg_media: "http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0"
+      localreg_media: "http://fpetutil.fpet.pokprv.stglabs.ibm.com/sandbox/lzocpfm2"
 
       additional_certs: |
         additionalTrustBundle: |
@@ -117,8 +117,8 @@ all:
 
   vars:
     os_dns_domain: '10.0.10.4'
-    cluster_name: 'test0'
+    cluster_name: 'lzocpfm2'
     base_domain: 'fpet.pokprv.stglabs.ibm.com'
     #pullsecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzE4NDZhMmMyMWQ1NGNhMzg1YzY2YTU5NzFhMjZhOGY6Ujg1RzlQTTlYTjhQWEE0MkNMQU1ROVpFRk5WVDNSNUpHWkk5MkJJRllMMDlXWDRTRThYMUc2TkJORFZSSEhSSw==","email":"lx390xst@us.ibm.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzE4NDZhMmMyMWQ1NGNhMzg1YzY2YTU5NzFhMjZhOGY6Ujg1RzlQTTlYTjhQWEE0MkNMQU1ROVpFRk5WVDNSNUpHWkk5MkJJRllMMDlXWDRTRThYMUc2TkJORFZSSEhSSw==","email":"lx390xst@us.ibm.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLWM1OTk1MTIxLWFhOTQtNDI0Mi05MDEwLTNjZDJkOTA5MTM0NTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSTBaRGszTURreVpqRmpZMlkwT1dWaU9XVmtOek13T0RFd05EYzNOalkyTVNKOS5zWGxHNEtENVdEbDlXR19McFdhaGswenF0bHJ0cFFDYTc4N1Y1UFJmOXE5TjZRWnV6aEpuQTJ2enNTRFZoZVIzV0hTMHBHU1JweHl0RW50WEl6czNDOWJpdXU4VUpFTzRFTXRhNkxlbl9xZUlEVGFJUTBTaWZmdGxJMUdEaXFyM3hEaVNhWjF0TWJ6QVhBdkVYWlU4WGhGaDZzb0RIdktZZTk0R0trcUxDTDdkZ1BOSXBSWnBxR3pZaDJwMmxMTXA3N2l1ci1wMWY1QUp2Z3FWU0pFV2RYQW9WSktmUmowNWNCUktMc1g2bzA4dy1Td3N6MUZqRENrQjhyYnFESk1kRW9aRVJKaXRTeHZPbV83TUdSbnhzWTNtTU4wZmZKS1c3MmVVWkgxQlVRSVdmUU5uWElRdTJfeE5EMVFMN2xyS1ZXX1pmN0Q2ZElsb2w5RU11MFB3ZUFWR2szWkE3UVk2cV82c1BjdUVpTE8yemVVczF0WmpNNzV4OVJkdDJ4bW1aN0tnQm5pLTNtMXFsajVfbDNUWko3eEFvSGRidUlXZmlBcExrR0lZd0FaZG1OSVBEOGM1dlI5Nms4anlsamRyR21XUnM3Rklrd05PSWJCQUNBVHR3dTJ6RDF6V1J4VGtKVWdXT0FrQzkxQzRGeUtrcGtOWV90WjVRZzBySktqMGVCc3UzQ1JqMjVCNmRxNTBsQnc2MWctbWZxUlFJVlBEWGx4cERJNHJxaVFrZ3JDVzRodWpFNVNCSjJ3VUNpLThfa0dPalhkQU5xdjg0ci1EYVA1TTVRcUk5eW1xMXI5YmlzSHl0S1diUEZyWExnNjhJY0RBZ0t5eEl2d0VaUk5wWkNQdHRKeXJ2Wk5HbUVhelZmLXRMdHdVWjNMaUNvYmlpRUptYk4xN2dtSQ==","email":"lx390xst@us.ibm.com"},"registry.redhat.io":{"auth":"fHVoYy1wb29sLWM1OTk1MTIxLWFhOTQtNDI0Mi05MDEwLTNjZDJkOTA5MTM0NTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSTBaRGszTURreVpqRmpZMlkwT1dWaU9XVmtOek13T0RFd05EYzNOalkyTVNKOS5zWGxHNEtENVdEbDlXR19McFdhaGswenF0bHJ0cFFDYTc4N1Y1UFJmOXE5TjZRWnV6aEpuQTJ2enNTRFZoZVIzV0hTMHBHU1JweHl0RW50WEl6czNDOWJpdXU4VUpFTzRFTXRhNkxlbl9xZUlEVGFJUTBTaWZmdGxJMUdEaXFyM3hEaVNhWjF0TWJ6QVhBdkVYWlU4WGhGaDZzb0RIdktZZTk0R0trcUxDTDdkZ1BOSXBSWnBxR3pZaDJwMmxMTXA3N2l1ci1wMWY1QUp2Z3FWU0pFV2RYQW9WSktmUmowNWNCUktMc1g2bzA4dy1Td3N6MUZqRENrQjhyYnFESk1kRW9aRVJKaXRTeHZPbV83TUdSbnhzWTNtTU4wZmZKS1c3MmVVWkgxQlVRSVdmUU5uWElRdTJfeE5EMVFMN2xyS1ZXX1pmN0Q2ZElsb2w5RU11MFB3ZUFWR2szWkE3UVk2cV82c1BjdUVpTE8yemVVczF0WmpNNzV4OVJkdDJ4bW1aN0tnQm5pLTNtMXFsajVfbDNUWko3eEFvSGRidUlXZmlBcExrR0lZd0FaZG1OSVBEOGM1dlI5Nms4anlsamRyR21XUnM3Rklrd05PSWJCQUNBVHR3dTJ6RDF6V1J4VGtKVWdXT0FrQzkxQzRGeUtrcGtOWV90WjVRZzBySktqMGVCc3UzQ1JqMjVCNmRxNTBsQnc2MWctbWZxUlFJVlBEWGx4cERJNHJxaVFrZ3JDVzRodWpFNVNCSjJ3VUNpLThfa0dPalhkQU5xdjg0ci1EYVA1TTVRcUk5eW1xMXI5YmlzSHl0S1diUEZyWExnNjhJY0RBZ0t5eEl2d0VaUk5wWkNQdHRKeXJ2Wk5HbUVhelZmLXRMdHdVWjNMaUNvYmlpRUptYk4xN2dtSQ==","email":"lx390xst@us.ibm.com"}}}'
-    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "dGVzdDp0ZXN0MA=="}}}'
+    pullsecret: '{"auths":{"sandboxRegistry.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "c2FuZGJveDpzYW5kYm94"}}}'
     sshkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com'
