@@ -1,6 +1,0 @@
-# User copy of the example vault and inventory files:
-vault.yml
-inventory.yml
-
-# CA certificate files for local testing:
-*.pem

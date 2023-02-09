@@ -1,4 +1,0 @@
----
-# defaults file for ims_cobol_define_app_resources
-
-ROUTE: '{{ DFS_IMS_SSID }}'

@@ -1,0 +1,12 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  name: intreg0-mirror
+spec:
+  repositoryDigestMirrors:
+  - mirrors:
+    - intreg0.fpet.pokprv.stglabs.ibm.com:5000/ocp4/openshift4
+    source: quay.io/openshift-release-dev/ocp-release
+  - mirrors:
+    - intreg0.fpet.pokprv.stglabs.ibm.com:5000/ocp4/openshift4
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
