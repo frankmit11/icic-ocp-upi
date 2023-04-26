@@ -48,13 +48,6 @@
       sed -i '/imageContentSources/a - mirrors:\n\ \ - {{ localreg_mirror }}\n\ \ source: {{ localreg_source1 }} ' install-config.yaml
   when:
     - use_localreg
-  
-# - name: Add additional certificates to install-config.yaml
-#   lineinfile:
-#     line: '{{ additional_certs }}'
-#     path: install-config.yaml
-#     insertafter: EOF
-#   when: additional_certs is defined
 
 - name: Update networkType from OpenShiftSDN to OVNKubernetes
   ansible.builtin.shell:
