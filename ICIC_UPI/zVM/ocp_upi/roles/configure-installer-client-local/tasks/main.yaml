@@ -20,7 +20,7 @@
     url: '{{ local_openshift_client }}'
     dest: ./openshift-client-linux.tar.gz
 
-- name: Unzip openshift client archive
+- name: Unzip openshift install binary archive
   ansible.builtin.command:
     cmd: tar -zvxf openshift-install-linux.tar.gz
 

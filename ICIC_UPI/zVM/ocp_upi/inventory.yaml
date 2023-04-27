@@ -35,7 +35,7 @@ all:
       ansible_python_interpreter: "{{ansible_playbook_python}}"
       
       use_network_name: 'VLAN1287'
-      use_network_subnet: '22c2cf48-7412-4d28-88ec-6d7ef7143626'
+      use_network_subnet: 'fe07a275-8314-47b0-b31d-bd6145c6ba2a'
 
       vm_type: 'kvm' # kvm or zvm
       disk_type: 'dasd' # dasd or scsi
@@ -47,17 +47,17 @@ all:
       auto_allocated_ip: false  # true or false
       #allocation_pool_start: '<ip range start>'
       #allocation_pool_end: '<ip range end>'
-      os_flavor_bootstrap: 'm1.medium'
-      os_flavor_master: 'm1.medium'
-      os_flavor_worker: 'm1.medium' 
+      os_flavor_bootstrap: 'medium'
+      os_flavor_master: 'ocpmgr_small'
+      os_flavor_worker: 'ocpwrk_medium' 
 
       create_server_zone: 'z15_AZ'
       os_control_nodes_number: 3
-      os_compute_nodes_number: 2
+      os_compute_nodes_number: 3
 
-      os_bootstrap_ip: '10.20.84.40'
-      os_master_ip: ['10.20.84.41', '10.20.84.42', '10.20.84.43']
-      os_infra_ip: ['10.20.84.38', '10.20.84.39']
+      os_bootstrap_ip: '10.20.84.59'
+      os_master_ip: ['10.20.84.62', '10.20.84.63', '10.20.84.64']
+      os_infra_ip: ['10.20.84.65', '10.20.84.66', '10.20.84.67']
       
       use_proxy: false # true or false
       #http_proxy: '<http-proxy>'
@@ -68,55 +68,14 @@ all:
       localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/ocp4/openshift4"
       localreg_source1: "quay.io/openshift-release-dev/ocp-release"
       localreg_source2: "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
-      localreg_media: "http://fpetutil.fpet.pokprv.stglabs.ibm.com/lzocpc"
+      local_openshift_install: 'http://fpetutil.pok.stglabs.ibm.com/test0/openshift-install-linux.tar.gz'
+      local_openshift_client: 'http://fpetutil.pok.stglabs.ibm.com/test0/openshift-client-linux.tar.gz'
+      local_rhcos_image: 'http://fpetutil.pok.stglabs.ibm.com/test0/rhcos-4.10.16-s390x-dasd.s390x.raw.gz'
 
-      additional_certs: |
-        additionalTrustBundle: |
-          -----BEGIN CERTIFICATE-----
-          MIIEuzCCAyOgAwIBAgIBATANBgkqhkiG9w0BAQsFADBGMSQwIgYDVQQKDBtGUEVU
-          LlBPS1BSVi5TVEdMQUJTLklCTS5DT00xHjAcBgNVBAMMFUNlcnRpZmljYXRlIEF1
-          dGhvcml0eTAeFw0yMTA4MTYxNTA2MjJaFw00MTA4MTYxNTA2MjJaMEYxJDAiBgNV
-          BAoMG0ZQRVQuUE9LUFJWLlNUR0xBQlMuSUJNLkNPTTEeMBwGA1UEAwwVQ2VydGlm
-          aWNhdGUgQXV0aG9yaXR5MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA
-          58r05eSLyAlHWu2mMtXUPRareADrIKfumz6O9YSrcxXXXs21P5YsIVMMi79v9DOi
-          LWyVdIQ5sX8ABSkIFmvyR0+uryd7zOlFuZJ34eIyQ8hJJVcmIJw+3n8x8sa0HbZ8
-          ao3OZz3YrM1svAey4XBINl9won50lrx8asbRC29EJtPE6URrB4qO6Fenx9IZ67nW
-          GC8KeXSTliX161PS7JNDcQOb5obtIP7SGjsCVL5xXVfrSPzcc6Kbg1soErpVTJ1u
-          ZqI5Bg35duVUdq8nyFNcpPZ0bJcIyT7eN11oh50/gzDc7bgnp2RJJosPl+FDEEXZ
-          44QxnioHOiRIngUkCM7dDgrPjdq2PCTiw+YykmR6KThdm0bnZ81Nyso/9CEnWZqU
-          DYpbSnO6Gkz/aTdxAZ9b0jKxlsDuPRH0yHUuNCsecUadeOazQyHvr3mecaOCxc2E
-          vPLrj8T01n6Un5n1K3AgZ9Qtp3DzxvQmhkBLe183V870FMYnzoVE2R5p9Tanztqb
-          AgMBAAGjgbMwgbAwHwYDVR0jBBgwFoAUWl1Gycb6XU6QdKILW25GCvvciRAwDwYD
-          VR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAcYwHQYDVR0OBBYEFFpdRsnG+l1O
-          kHSiC1tuRgr73IkQME0GCCsGAQUFBwEBBEEwPzA9BggrBgEFBQcwAYYxaHR0cDov
-          L2lwYS1jYS5mcGV0LnBva3Bydi5zdGdsYWJzLmlibS5jb20vY2Evb2NzcDANBgkq
-          hkiG9w0BAQsFAAOCAYEA545ByUeL8jtRnfGrqQQJuRE/+exUe+/e4sWzASHC6Z/z
-          y0rjcM5dMdNYTGiy2lidF4lcBV0mTc28ubO0vZ68MzH4uYT4KObsC0e4xxKO2EH6
-          6RL6oJ9f2zKpOu28fcyKRjA74OLb+69354Qpr8TmQhkWRb7tE9hj1OQHrj+uJG+l
-          CQzvAKxDBYWqDwAkWhsBXi/EBesCkCXoJDlyE9my8eAndUOLRNDqlFZJPDuasJrZ
-          EdQJie9exU+CU1+Hm0oQH3HWsfvSgg/vAUk9MXrTxets0eVY22G5kZKSZvSnN9A7
-          oL8PNCuq3BZleSNxgeovoBp3mIMrFfwHIRwu8EL3CeFecV6wOaZrFBRU938mLwVa
-          RPPm1I4wxEnqSn9yqLkBiFGbb0o5ELfGMv2zHGiR+wHGYbelbS2ewCLgo/+w690E
-          rtlwkB3+yU4Qwld+BiRSb84CvGufVSeZ2abPk7Kf67fLRfKtIHza4hzJwpo6z4wq
-          bRaUkgKe6w4n+XYm7WGg
-          -----END CERTIFICATE-----
+      additional_certs: "{{ lookup('file', '/home/lozcoc/zVM_UPI/test0_upi/certs/domain.crt') | indent (width=2) }}"
 
-      approve_nodes_csr: 15 # minute
+      approve_nodes_csr: 35 # minute
       create_server_timeout: 15 # minute
-
-      use_proxy: false
-      # http_proxy: '<http-proxy>'
-      # https_proxy: '<https-proxy>'
-      # no_proxy: '<no-proxy>'
-
-      use_localreg: false
-      # localreg_mirror: "<local-mirror-registry>"
-
-      # local_openshift_install: '<local-openshift-install-url>'
-      # local_openshift_client: '<local-openshift-client-url>'
-      # local_rhcos_image: '<local-rhcos-image-url>'
-
-      # additional_certs: "{{ lookup('file', '/opt/registry/certs/domain.crt') | indent (width=2) }}"
 
     bastion:
       ansible_ssh_host: '<linux-server-ip-addr>'
@@ -126,8 +85,8 @@ all:
       dns_forwarder: '<upstream-dns-ip-addr>'
 
   vars:
-    os_dns_domain: '10.0.10.4'
-    cluster_name: 'lzocpfm1'
+    os_dns_domain: '10.20.0.2'
+    cluster_name: 'test0'
     base_domain: 'fpet.pokprv.stglabs.ibm.com'
-    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "b2Nwc3lzdGVtOldFZlZxY1hkREdTSjdiUg=="}}}'
+    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "YWRtaW46bDB6YzBjMTg="}}}'
     sshkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com'
