@@ -34,10 +34,10 @@ all:
       ansible_connection: local
       ansible_python_interpreter: "{{ansible_playbook_python}}"
       
-      use_network_name: 'VLAN1287'
+      use_network_name: 'vlan_1287'
       use_network_subnet: 'fe07a275-8314-47b0-b31d-bd6145c6ba2a'
 
-      vm_type: 'kvm' # kvm or zvm
+      vm_type: 'zvm' # kvm or zvm
       disk_type: 'dasd' # dasd or scsi
       #volume_type_id: '<storage-template-id>'
       
@@ -65,17 +65,17 @@ all:
       #no_proxy: '<no-proxy>'
 
       use_localreg: true # true or false
-      localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/ocp4/openshift4"
+      localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/test0/ocp4/openshift4/install"
       localreg_source1: "quay.io/openshift-release-dev/ocp-release"
       localreg_source2: "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
-      local_openshift_install: 'http://fpetutil.pok.stglabs.ibm.com/test0/openshift-install-linux.tar.gz'
-      local_openshift_client: 'http://fpetutil.pok.stglabs.ibm.com/test0/openshift-client-linux.tar.gz'
-      local_rhcos_image: 'http://fpetutil.pok.stglabs.ibm.com/test0/rhcos-4.10.16-s390x-dasd.s390x.raw.gz'
+      local_openshift_install: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/openshift-install-linux.tar.gz'
+      local_openshift_client: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/openshift-client-linux.tar.gz'
+      local_rhcos_image: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/rhcos-4.10.16-s390x-dasd.s390x.raw.gz'
 
       additional_certs: "{{ lookup('file', '/home/lozcoc/zVM_UPI/test0_upi/certs/domain.crt') | indent (width=2) }}"
 
       approve_nodes_csr: 35 # minute
-      create_server_timeout: 15 # minute
+      create_server_timeout: 45 # minute
 
     bastion:
       ansible_ssh_host: '<linux-server-ip-addr>'
@@ -85,8 +85,8 @@ all:
       dns_forwarder: '<upstream-dns-ip-addr>'
 
   vars:
-    os_dns_domain: '10.20.0.2'
+    os_dns_domain: '10.0.10.4'
     cluster_name: 'test0'
     base_domain: 'fpet.pokprv.stglabs.ibm.com'
-    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "YWRtaW46bDB6YzBjMTg="}}}'
+    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "dGVzdDp0ZXN0MA=="}}}'
     sshkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com'
