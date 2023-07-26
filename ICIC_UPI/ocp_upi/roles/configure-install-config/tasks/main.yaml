@@ -15,10 +15,10 @@
     state: absent
     path: install-config.yaml
 
-- name: 'Get the subnet range'
-  ansible.builtin.command:
-    cmd: "openstack subnet show {{ use_network_subnet }} -c cidr -f value"
-  register: sunbet_range
+# - name: 'Get the subnet range'
+#   ansible.builtin.command:
+#     cmd: "openstack subnet show {{ use_network_subnet }} -c cidr -f value"
+#   register: sunbet_range
 
 - name: Create install-config.yaml
   ansible.builtin.template:
