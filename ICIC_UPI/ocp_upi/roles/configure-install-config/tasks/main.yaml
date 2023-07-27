@@ -25,10 +25,10 @@
     src: templates/install-config-yaml.j2
     dest: "install-config.yaml"
 
-- name: Configure machine network in install configuration
-  ansible.builtin.script: tools/config-machine-network.py {{ sunbet_range.stdout_lines[0] }}
-  args:
-    executable: python3
+#- name: Configure machine network in install configuration
+#  ansible.builtin.script: tools/config-machine-network.py {{ sunbet_range.stdout_lines[0] }}
+#  args:
+#    executable: python3
 
 - name: Add http proxy and https proxy in install-config.yaml
   ansible.builtin.shell:

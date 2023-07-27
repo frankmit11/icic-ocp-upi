@@ -18,19 +18,19 @@ token = sys.argv[2]
 
 bootstrap_ign_shim = {
     "ignition": {
-      "config": {
-        "merge": [
-          {
-            "source": image_url,
-            "httpHeaders": [
-                	{
-		              "name": "X-Auth-Token",
-		              "value": token
-	              }
-              ]
-          }
-        ]
-      },
+#      "config": {
+#        "merge": [
+#          {
+#            "source": image_url,
+#            "httpHeaders": [
+#                	{
+#		              "name": "X-Auth-Token",
+#		              "value": token
+#	              }
+#              ]
+#          }
+#        ]
+#      },
     "version": "3.1.0"
     },
 }
