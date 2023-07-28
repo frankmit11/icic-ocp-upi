@@ -40,7 +40,8 @@
 #   register: glance_token
 
 - name: Generate bootstrap ignition shim
-  ansible.builtin.script: tools/generate-bootstrap-ignitionshim.py {{ image_url.stdout_lines[0] }} {{ glance_token.stdout }} {{ infra_id.stdout_lines[0] }}
+  #ansible.builtin.script: tools/generate-bootstrap-ignitionshim.py {{ image_url.stdout_lines[0] }} {{ glance_token.stdout }} {{ infra_id.stdout_lines[0] }}
+  ansible.builtin.script: tools/generate-bootstrap-ignitionshim.py {{ infra_id.stdout_lines[0] }}
   args:
     executable: python3
 

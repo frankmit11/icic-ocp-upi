@@ -33,46 +33,51 @@ all:
     localhost:
       ansible_connection: local
       ansible_python_interpreter: "{{ansible_playbook_python}}"
-      
+
       # use_network_name: 'vlan_1287'
       # use_network_subnet: 'fe07a275-8314-47b0-b31d-bd6145c6ba2a'
 
       vm_type: 'zvm' # kvm or zvm
       disk_type: 'dasd' # dasd or scsi
       #volume_type_id: '<storage-template-id>'
-      
-      openshift_version: '4.10'
-      openshift_minor_version: '16'
-      
+
+      openshift_version: '4.12'
+      openshift_minor_version: '17'
+
       auto_allocated_ip: false  # true or false
       #allocation_pool_start: '<ip range start>'
       #allocation_pool_end: '<ip range end>'
       # os_flavor_bootstrap: 'medium'
       # os_flavor_master: 'ocpmgr_small'
-      # os_flavor_worker: 'ocpwrk_medium' 
+      # os_flavor_worker: 'ocpwrk_medium'
 
       # create_server_zone: 'z15_AZ'
       os_control_nodes_number: 3
-      os_compute_nodes_number: 3
+      os_compute_nodes_number: 6
 
       # os_bootstrap_ip: '10.20.84.59'
       # os_master_ip: ['10.20.84.62', '10.20.84.63', '10.20.84.64']
       # os_infra_ip: ['10.20.84.65', '10.20.84.66', '10.20.84.67']
-      
+
       use_proxy: false # true or false
       #http_proxy: '<http-proxy>'
       #https_proxy: '<https-proxy>'
       #no_proxy: '<no-proxy>'
 
       use_localreg: true # true or false
-      localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/test0/ocp4/openshift4/install"
+      localreg_mirror: "intreg0.fpet.pokprv.stglabs.ibm.com:5000/secret0/ocp4/openshift4/1217/install"
       localreg_source1: "quay.io/openshift-release-dev/ocp-release"
       localreg_source2: "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
-      local_openshift_install: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/openshift-install-linux.tar.gz'
-      local_openshift_client: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/openshift-client-linux.tar.gz'
-      local_rhcos_image: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/test0/rhcos-4.10.16-s390x-dasd.s390x.raw.gz'
+      local_openshift_install: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/secret0/openshift-install-linux-4.12.17.tar.gz'
+      local_openshift_client: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/secret0/openshift-client-linux.tar.gz'
+      local_rhcos_image: 'http://fpetutil.fpet.pokprv.stglabs.ibm.com/secret0/rhcos-4.12.17-390x-live-rootfs.s390x.img'
 
-      additional_certs: "{{ lookup('file', '/home/lozcoc/zVM_UPI/test0_upi/certs/domain.crt') | indent (width=2) }}"
+      additional_certs: |
+        additionalTrustBundle: |
+          -----BEGIN CERTIFICATE-----
+          <cert text>
+          -----END CERTIFICATE-----
+
 
       # approve_nodes_csr: 35 # minute
       # create_server_timeout: 45 # minute
@@ -86,7 +91,8 @@ all:
 
   vars:
     # os_dns_domain: '10.0.10.4'
-    cluster_name: 'test0'
+    cluster_name: 'secret0'
     base_domain: 'fpet.pokprv.stglabs.ibm.com'
-    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "dGVzdDp0ZXN0MA=="}}}'
-    sshkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com'
+    pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "<base64 encoded username:password>"}}}'
+    sshkey: '<your ssh public key>'
+
