@@ -13,8 +13,8 @@ import json
 import os
 import sys
 
-image_url = sys.argv[1]
-token = sys.argv[2]
+#image_url = sys.argv[1]
+#token = sys.argv[2]
 
 bootstrap_ign_shim = {
     "ignition": {
@@ -54,7 +54,8 @@ if ca_cert_path:
       }
     })
 
-infra_id = sys.argv[3]
+#infra_id = sys.argv[3] -> moved to arg 1 since we don't need image_url or cic token
+infra_id = sys.argv[1]
 if infra_id:
     with open(infra_id+'-bootstrap-ignition.json', 'a') as f:
         json.dump(bootstrap_ign_shim, f)
