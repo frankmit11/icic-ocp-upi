@@ -200,10 +200,15 @@ mkdir -p /opt/ibm/icic
 scp user@host:/opt/ibm/icic/icicrc /opt/ibm/icic/
 ```
 
-5. Copy the `icic.crt` file from the IBM Cloud Infrastructure Center management node to your certs directory `/etc/pki/tls/certs/`:
+5 A. Copy the `icic.crt` file from the IBM Cloud Infrastructure Center management node to your certs directory `/etc/pki/tls/certs/`:
 ```
 scp user@host:/etc/pki/tls/certs/icic.crt /etc/pki/tls/certs/
 ```
+
+  B. Copy your root CA cert for ocp to the root directory of this repo in `ocp.crt`. Add a line to your `icicrc` 
+    ```
+    export OCP_CACERT=$HOME/<path>/<to>/ocp.crt
+    ```
 
 6. Run the source `icicrc` to set the environment variables:
 ```

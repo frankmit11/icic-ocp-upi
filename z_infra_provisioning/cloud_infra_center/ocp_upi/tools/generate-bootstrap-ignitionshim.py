@@ -46,11 +46,17 @@ bootstrap_ign_shim = {
     }
   }
 
-ca_cert_path = os.environ.get('OS_CACERT', '')
-if ca_cert_path:
-    with open(ca_cert_path, 'r') as f:
-        ca_cert = f.read().encode()
-        ca_cert_b64 = base64.standard_b64encode(ca_cert).decode().strip()
+#this will be the cert for the CIC instance
+os_ca_cert_path = os.environ.get('OS_CACERT', '')
+#this will be the CA cert used by OCP
+ocp_ca_cert_path = os.environ.get('OCP_CACERT', '')
+if os_ca_cert_path and ocp_ca_cert_path:
+    with open(os_ca_cert_path, 'r') as f:
+        cic_ca_cert = f.read().encode()
+        cic_ca_cert_b64 = base64.standard_b64encode(cic_ca_cert).decode().strip()
+    with open(ocp_ca_cert_path, 'r') as f:
+        ocp_ca_cert = f.read().encode()
+        ocp_ca_cert_b64 = base64.standard_b64encode(ocp_ca_cert).decode().strip()
     files = bootstrap_ign_shim['ignition']
     files.update(
     {
@@ -58,7 +64,10 @@ if ca_cert_path:
         "tls": {
           "certificateAuthorities": [
             {
-              "source": "data:text/plain;charset=utf-8;base64," + ca_cert_b64,
+              "source": "data:text/plain;charset=utf-8;base64," + cic_ca_cert_b64,
+            },
+            {
+              "source": "data:text/plain;charset=utf-8;base64," + ocp_ca_cert_b64,
             }
           ]
         }
