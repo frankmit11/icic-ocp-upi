@@ -35,11 +35,15 @@ bootstrap_ign_shim = {
     },
 }
 
-ca_cert_path = os.environ.get('OS_CACERT', '')
-if ca_cert_path:
-    with open(ca_cert_path, 'r') as f:
-        ca_cert = f.read().encode()
-        ca_cert_b64 = base64.standard_b64encode(ca_cert).decode().strip()
+os_ca_cert_path = os.environ.get('OS_CACERT', '')
+ocp_ca_cert_path = os.environ.get('OCP_CACERT', '')
+if os_ca_cert_path:
+    with open(os_ca_cert_path, 'r') as f:
+        cic_ca_cert = f.read().encode()
+        cic_ca_cert_b64 = base64.standard_b64encode(cic_ca_cert).decode().strip()
+    with open(ocp_ca_cert_path, 'r') as f:
+        ocp_ca_cert = f.read().encode()
+        ocp_ca_cert_b64 = base64.standard_b64encode(ocp_ca_cert).decode().strip()
     files = bootstrap_ign_shim['ignition']
     files.update(
     {
@@ -54,6 +58,26 @@ if ca_cert_path:
       }
     })
 
+if len(sys.argv) > 4:
+    name_prefix = sys.argv[4]
+else:
+    name_prefix = ''
+
+if name_prefix:
+    name_prefix_byte = name_prefix.encode()
+    bootstrap_hostname = base64.standard_b64encode(name_prefix_byte).decode().strip()
+    files.update(
+    {
+      "storage": {
+        "files": {
+          "path": "/etc/hostname", 
+          "mode": 420, 
+          "contents": {
+              "source": "data:text/plain;charset=utf-8;base64," + bootstrap_hostname
+          }
+        }    
+      }
+    })
 infra_id = sys.argv[3]
 if infra_id:
     with open(infra_id+'-bootstrap-ignition.json', 'a') as f:

@@ -89,5 +89,8 @@ all:
     os_dns_domain: '10.0.10.4'
     cluster_name: 'test0'
     base_domain: 'fpet.pokprv.stglabs.ibm.com'
+    # bootstrap_name_prefix: '<bootstrap-node-name>'
+    # master_name_prefix: '<master-node-name>'
+    # worker_name_prefix: '<worker-node-name>'
     pullsecret: '{"auths":{"intreg0.fpet.pokprv.stglabs.ibm.com:5000": {"auth": "dGVzdDp0ZXN0MA=="}}}'
     sshkey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com'
