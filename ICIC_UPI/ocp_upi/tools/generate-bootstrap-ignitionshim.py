@@ -51,7 +51,10 @@ if os_ca_cert_path:
         "tls": {
           "certificateAuthorities": [
             {
-              "source": "data:text/plain;charset=utf-8;base64," + ca_cert_b64,
+              "source": "data:text/plain;charset=utf-8;base64," + cic_ca_cert_b64,
+            },
+            {
+              "source": "data:text/plain;charset=utf-8;base64," + ocp_ca_cert_b64,
             }
           ]
         }
