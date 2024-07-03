@@ -33,18 +33,7 @@ bootstrap_ign_shim = {
       },
     "version": "3.1.0"
     },
-    "passwd": {
-      "users": [
-        { 
-          "name": "root",
-          "passwordHash": "$6$BL6oRiitCdk4m.4b$/TfSjiGi4p8CnE3kPadBCrnq9LzYX7F6KItGNCv4FmoB0KlaHbprxZSYwfIzVNORTZzNYlmXVenjEqKos94zQ/",
-          "sshAuthorizedKeys": [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBQw4IBxyn9W2hF+MDTRW21fq91PT3e0fwnKa2aTQz fpmitaro@us.ibm.com"
-          ]
-        }
-      ]
-    }
-  }
+}
 
 ca_cert_path = os.environ.get('OS_CACERT', '')
 if ca_cert_path:
@@ -65,6 +54,26 @@ if ca_cert_path:
       }
     })
 
+if len(sys.argv) > 4:
+    name_prefix = sys.argv[4]
+else:
+    name_prefix = ''
+
+if name_prefix:
+    name_prefix_byte = name_prefix.encode()
+    bootstrap_hostname = base64.standard_b64encode(name_prefix_byte).decode().strip()
+    files.update(
+    {
+      "storage": {
+        "files": {
+          "path": "/etc/hostname", 
+          "mode": 420, 
+          "contents": {
+              "source": "data:text/plain;charset=utf-8;base64," + bootstrap_hostname
+          }
+        }    
+      }
+    })
 infra_id = sys.argv[3]
 if infra_id:
     with open(infra_id+'-bootstrap-ignition.json', 'a') as f:
